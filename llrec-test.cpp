@@ -67,6 +67,18 @@ void dealloc(Node* head)
 //   function object struct declarations
 // -----------------------------------------------
 
+struct Pred //bool operator for pred
+{
+	int num2; //check to see if number meets pred conditons
+	Pred(int val) : num2(val){}
+    bool operator()(int num1) {
+        if (num1 <= num2)
+        {
+            return true;
+        }
+        else return false;
+    }
+};
 
 
 
@@ -77,7 +89,6 @@ int main(int argc, char* argv[])
         cout << "Please provide an input file" << endl;
         return 1;
     }
-
     // -----------------------------------------------
     // Feel free to update any code below this point
     // -----------------------------------------------
@@ -86,9 +97,29 @@ int main(int argc, char* argv[])
     print(head);
 
     // Test out your linked list code
+    Node * list = new Node(3, new Node(6, new Node(4, new Node(9, NULL))));
+    Node* small = NULL; 
+	Node* large = NULL; 
+    cout<<"Starting list: ";
+    print(list);
+    llpivot(list, small, large, 5);
 
+    
+    cout<<"small: ";
+    print(small);
+    cout<<endl<<"large: ";
+    print(large);
+    cout<<endl;
+    cout<<"Original list: ";
+    print(list);
 
-
+    Node * list2 = new Node(2, new Node(4, new Node(6, new Node(8, NULL))));
+    print(list2);
+    Pred Pred(5);
+    list2 = llfilter(list2, Pred);
+    // Test out your linked list code
+    cout<<"Filtered list: ";
+    print(list2);
     
     return 0;
 

@@ -78,13 +78,20 @@ Node* llfilter(Node* head, Comp pred);
 //*****************************************************************************
 
 template <typename Comp>
-Node* llfilter(Node* head, Comp pred)
+Node* llfilter(Node* head, Comp pred) 
 {
-    //*********************************************
-    // Provide your implementation below
-    //*********************************************
-
-
+    if (head == NULL) { // f the list empty, return null.
+        return head;
+    }
+    if (pred(head->val)) { // If the pred is true for the current node
+        Node *nextNode = head->next;      // Save next node.
+        delete head;           // Delete current node.
+        // Recursively filter starting at the next node and return that result.
+        return llfilter(nextNode, pred);
+    } else {
+        // If the current node should be kept, recursively filter the rest of the list.
+        head->next = llfilter(head->next, pred);
+        return head; // Return the current node with its filtered next pointer.
+    }
 }
-
 #endif
